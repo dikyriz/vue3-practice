@@ -15,7 +15,13 @@ const username = inject('username')
   <v-list density="compact">
     <v-list-subheader class="my-3 text-h5 text-uppercase">{{ username }}</v-list-subheader>
 
-    <v-list-item v-for="(item, i) in items" :key="i" :to="item.path" :value="item" color="primary">
+    <v-list-item
+      v-for="(item, i) in items"
+      :key="i"
+      :to="{ name: `${item.pathName}` }"
+      :value="item"
+      color="primary"
+    >
       <template v-slot:prepend>
         <v-icon :icon="item.icon"></v-icon>
       </template>
