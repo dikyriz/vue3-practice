@@ -16,7 +16,7 @@ import RegisterView from '../views/public/RegisterView.vue'
 //Error
 import NotFoundView from '../views/error/NotFoundView.vue'
 
-const login = false
+const login = true
 
 const requiredAuth = (to, from, next) => {
   if (!login) {
@@ -37,7 +37,7 @@ const router = createRouter({
       beforeEnter: requiredAuth,
       children: [
         {
-          path: '',
+          path: './',
           name: 'Dashboard',
           component: DashboardView
         },
