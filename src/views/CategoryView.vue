@@ -1,16 +1,18 @@
 <script setup>
-import { ref, reactive } from 'vue'
 import DialogComponent from '../components/dashboard/DialogComponent.vue'
+import { useCategoryStore } from '@/stores/CategoryStore'
+import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
 
-const dialog = ref(false)
-const form = ref(false)
+const CategoryStorage = useCategoryStore()
 
-const categories = [
-  { id: 1, name: 'Politik' },
-  { id: 2, name: 'Kuliner' },
-  { id: 3, name: 'IT' },
-  { id: 4, name: 'Sejarah' }
-]
+const { category, dialog, form, categories } = storeToRefs(CategoryStorage)
+
+const { submitData, readCategory } = CategoryStorage
+
+onMounted(() => {
+  readCategory()
+})
 
 const nameRules = [
   (value) => {
@@ -25,16 +27,6 @@ const descriptionRules = [
     return 'Isi dahulu'
   }
 ]
-
-const category = reactive({
-  name: '',
-  description: ''
-})
-
-const submitData = () => {
-  if (!form.value) return
-  alert('test')
-}
 </script>
 <template>
   <div>Category</div>
