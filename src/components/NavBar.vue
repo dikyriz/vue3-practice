@@ -1,5 +1,9 @@
 <script setup>
+import { useAuthStore } from '@/stores/AuthStore'
 defineEmits('open')
+
+const auth = useAuthStore()
+const { logoutUser } = auth
 </script>
 
 <template>
@@ -16,6 +20,6 @@ defineEmits('open')
       <v-btn icon="mdi-filter" variant="text"></v-btn>
     </template>
 
-    <v-btn icon="mdi-logout" variant="text"> </v-btn>
+    <v-btn icon="mdi-logout" variant="text" @click="logoutUser"> </v-btn>
   </v-app-bar>
 </template>

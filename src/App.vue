@@ -1,9 +1,13 @@
 <script setup>
 import { RouterView } from 'vue-router'
-// import HelloWorld from './components/HelloWorld.vue'
-import { provide } from 'vue'
+import { onMounted } from 'vue'
+import { useAuthStore } from './stores/AuthStore'
 
-provide('username', 'Usernames')
+const auth = useAuthStore()
+
+onMounted(() => {
+  auth.userHandler()
+})
 </script>
 
 <template>
