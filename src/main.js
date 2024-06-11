@@ -9,21 +9,28 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
-const app = createApp(App)
+import { auth } from './config/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const vuetify = createVuetify({
   components,
   directives
 })
 
-const pinia = createPinia()
+let app
 
-pinia.use(({ store }) => {
-  store.router = markRaw(router)
+onAuthStateChanged(auth, () => {
+  app = createApp(App)
+
+  const pinia = createPinia()
+
+  pinia.use(({ store }) => {
+    store.router = markRaw(router)
+  })
+
+  app.use(pinia)
+  app.use(router)
+  app.use(vuetify)
+
+  app.mount('#app')
 })
-
-app.use(pinia)
-app.use(router)
-app.use(vuetify)
-
-app.mount('#app')

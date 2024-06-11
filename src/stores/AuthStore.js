@@ -1,7 +1,12 @@
 import { auth, db } from '../config/firebase'
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
-import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  signInWithEmailAndPassword
+} from 'firebase/auth'
 import { addDoc, collection, query, where, getDocs } from 'firebase/firestore'
 import { useRouter } from 'vue-router'
 
@@ -19,6 +24,10 @@ export const useAuthStore = defineStore('Auth', () => {
   })
 
   const currentUser = ref(null)
+
+  //validation error
+  const isError = ref(false)
+  const message = ref(null)
 
   const userHandler = () => {
     onAuthStateChanged(auth, async (user) => {
@@ -39,16 +48,34 @@ export const useAuthStore = defineStore('Auth', () => {
     })
   }
 
-  const authUser = async () => {
-    const data = await createUserWithEmailAndPassword(auth, user.email, user.password)
+  const authUser = async (isLogin = false) => {
+    try {
+      isError.value = false
+      message.value = null
 
-    await addDoc(userCollection, {
-      name: user.name,
-      isAdmin: false,
-      uid: data.user.uid
-    })
+      if (isLogin) {
+        await signInWithEmailAndPassword(auth, user.email, user.password)
+      } else {
+        const data = await createUserWithEmailAndPassword(auth, user.email, user.password)
 
-    router.push({ name: 'Dashboard' })
+        await addDoc(userCollection, {
+          name: user.name,
+          isAdmin: false,
+          uid: data.user.uid
+        })
+      }
+    } catch (error) {
+      isError.value = true
+      message.value = error.message
+    }
+
+    user.email = ''
+    user.name = ''
+    user.password = ''
+
+    if (!isError.value) {
+      router.push({ name: 'Dashboard' })
+    }
   }
 
   const logoutUser = () => {
@@ -61,5 +88,5 @@ export const useAuthStore = defineStore('Auth', () => {
       })
   }
 
-  return { formInput, user, authUser, userHandler, currentUser, logoutUser }
+  return { formInput, user, authUser, userHandler, currentUser, logoutUser, isError, message }
 })

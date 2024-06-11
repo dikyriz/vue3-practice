@@ -16,11 +16,15 @@ import RegisterView from '../views/public/RegisterView.vue'
 //Error
 import NotFoundView from '../views/error/NotFoundView.vue'
 
-const login = true
+//News
+import CreateNewsView from '@/views/news/CreateNewsView.vue'
+
+import { auth } from '../config/firebase'
 
 const requiredAuth = (to, from, next) => {
-  if (!login) {
-    alert('Please login')
+  const userAuth = auth.currentUser
+  if (!userAuth) {
+    alert('Please login or register')
     next({ name: 'Login' })
   } else {
     next()
@@ -37,6 +41,10 @@ const router = createRouter({
       beforeEnter: requiredAuth,
       children: [
         {
+          path: '',
+          redirect: { name: 'Dashboard' }
+        },
+        {
           path: './',
           name: 'Dashboard',
           component: DashboardView
@@ -45,6 +53,11 @@ const router = createRouter({
           path: 'news',
           name: 'News',
           component: NewsView
+        },
+        {
+          path: 'news/create',
+          name: 'CreateNews',
+          component: CreateNewsView
         },
         {
           path: 'category',

@@ -8,7 +8,12 @@ const { currentUser } = storeToRefs(auth)
 
 <template>
   <div>
-    <h2>halo {{ currentUser?.name }} ({{ currentUser?.email }})</h2>
-    <p>welcome</p>
+    <div v-if="!currentUser">
+      <h1>loading</h1>
+    </div>
+    <div v-else>
+      <h2>halo {{ currentUser.name }} ({{ currentUser.email }})</h2>
+      <p>welcome</p>
+    </div>
   </div>
 </template>
