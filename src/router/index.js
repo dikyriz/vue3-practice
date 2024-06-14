@@ -18,6 +18,8 @@ import NotFoundView from '../views/error/NotFoundView.vue'
 
 //News
 import CreateNewsView from '@/views/news/CreateNewsView.vue'
+import DetailNews from '@/views/news/DetailNewsView.vue'
+import UpdateNews from '@/views/news/UpdateNewsView.vue'
 
 import { auth } from '../config/firebase'
 
@@ -58,6 +60,16 @@ const router = createRouter({
           path: 'news/create',
           name: 'CreateNews',
           component: CreateNewsView
+        },
+        {
+          path: 'news/:id',
+          name: 'DetailNews',
+          component: DetailNews
+        },
+        {
+          path: 'news/:id/edit',
+          name: 'EditNews',
+          component: UpdateNews
         },
         {
           path: 'category',
