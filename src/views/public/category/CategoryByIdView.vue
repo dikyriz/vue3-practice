@@ -6,6 +6,7 @@ import { db } from '@/config/firebase'
 
 //state
 const newsData = ref(null)
+console.log(newsData)
 
 //register
 const route = useRoute()
@@ -32,7 +33,9 @@ onMounted(() => {
 
 <template>
   <div v-if="newsData">
-    <h1 class="my-7">List Category {{ newsData[0].category.name }}</h1>
+    <h1 class="my-7">
+      {{ newsData[0] ? 'List Category ' : 'tidak ada berita' }} {{ newsData[0]?.category.name }}
+    </h1>
     <v-card class="mb-7" v-for="data in newsData" :key="data.id">
       <v-img
         class="align-end text-white"
@@ -55,8 +58,5 @@ onMounted(() => {
         <v-btn @click="detailNews(data.id)" color="info" text="Read More"></v-btn>
       </v-card-actions>
     </v-card>
-  </div>
-  <div v-else>
-    <h1>tidak ada berita</h1>
   </div>
 </template>
