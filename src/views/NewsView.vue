@@ -49,7 +49,7 @@ const deleteData = (id) => {
         <v-img
           class="align-end text-white"
           height="300"
-          src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+          :src="data.image ? data.image : `https://cdn.vuetifyjs.com/images/cards/docks.jpg`"
           cover
         >
           <v-card-title>{{ data.title.substring(0, 50) }}</v-card-title>

@@ -8,7 +8,7 @@ import HeaderComponent from '../components/public/HeaderComponent.vue'
     <!-- Header -->
     <HeaderComponent />
     <!-- Main -->
-    <v-container style="min-height: 100vh" class="my-10">
+    <v-container style="min-height: 100vh; max-width: 900px" class="my-10">
       <RouterView />
     </v-container>
     <!-- Footer -->

@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import DetailNewsComponent from '@/components/news/DetailNewsComponent.vue'
 import { useNewsStore } from '@/stores/newsStore'
 import { storeToRefs } from 'pinia'
-import DetailNewsComponent from '../../components/news/DetailNewsComponent.vue'
 
 //route
 const route = useRoute()
@@ -24,6 +24,6 @@ onMounted(() => {
 
 <template>
   <div v-if="detailNews">
-    <DetailNewsComponent :data="detailNews" :isUpdate="true" />
+    <DetailNewsComponent :data="detailNews" />
   </div>
 </template>

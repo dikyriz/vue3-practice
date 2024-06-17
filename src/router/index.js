@@ -12,6 +12,7 @@ import LandingPageView from '../views/LandingPage.vue'
 import CategoryPublicView from '../views/public/CategoryView.vue'
 import LoginView from '../views/public/LoginView.vue'
 import RegisterView from '../views/public/RegisterView.vue'
+import CategoryNewsById from '@/views/public/category/CategoryByIdView.vue'
 
 //Error
 import NotFoundView from '../views/error/NotFoundView.vue'
@@ -20,6 +21,7 @@ import NotFoundView from '../views/error/NotFoundView.vue'
 import CreateNewsView from '@/views/news/CreateNewsView.vue'
 import DetailNews from '@/views/news/DetailNewsView.vue'
 import UpdateNews from '@/views/news/UpdateNewsView.vue'
+import DetailNewsPublic from '@/views/public/news/DetailNewsPublicView.vue'
 
 import { auth } from '../config/firebase'
 
@@ -100,9 +102,19 @@ const router = createRouter({
           component: LandingPageView
         },
         {
+          path: '/news/:id',
+          name: 'DetailNewsPublic',
+          component: DetailNewsPublic
+        },
+        {
           path: '/category',
           name: 'CategoryPublic',
           component: CategoryPublicView
+        },
+        {
+          path: '/category/:id',
+          name: 'CategoryById',
+          component: CategoryNewsById
         },
         {
           path: '/register',
