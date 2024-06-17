@@ -18,7 +18,7 @@ const readData = async () => {
     return { ...doc.data(), id: doc.id }
   })
 
-  console.log(querySnapshot)
+  // console.log(querySnapshot)
 }
 
 const detailNews = (paramsId) => {
